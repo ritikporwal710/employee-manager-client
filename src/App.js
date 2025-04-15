@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import EmployeeList from "./components/EmployeeList";
 import AddEmployeeForm from "./components/AddEmployeeForm";
-import { getEmployees } from "./Services/EmployeeService";
+import { deleteEmployee, getEmployees } from "./Services/EmployeeService";
 
 const theme = createTheme({
   palette: {
@@ -33,8 +33,10 @@ function App() {
     setEmployees([...employees, { ...newEmployee, id: Date.now() }]);
   };
 
-  const handleDeleteEmployee = (id) => {
-    setEmployees(employees.filter((employee) => employee.id !== id));
+  const handleDeleteEmployee = async(id) => {
+    // setEmployees(employees.filter((employee) => employee.id !== id));
+    await deleteEmployee(id);
+    fetchEmployees();
   };
 
   useEffect(() => {

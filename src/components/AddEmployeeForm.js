@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, TextField, Button, Typography, Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { addEmployee } from "../Services/EmployeeService";
 
 function AddEmployeeForm({ onAddEmployee }) {
   const [formData, setFormData] = useState({
@@ -17,8 +18,15 @@ function AddEmployeeForm({ onAddEmployee }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
+    const employee = {
+      username: formData.username,
+      name: formData.name,
+      email: formData.email,
+    };
+    await addEmployee(employee);
     if (formData.username && formData.name && formData.email) {
       onAddEmployee(formData);
       setFormData({
